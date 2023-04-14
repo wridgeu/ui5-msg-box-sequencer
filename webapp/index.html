@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Demo</title>
+  <script id="sap-ui-bootstrap" src="https://sdk.openui5.org/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize"
+    data-sap-ui-libs="sap.m, sap.ui.layout, sap.tnt" data-sap-ui-resourceroots='{"Demo": "./"}'
+    data-sap-ui-async="true"></script>
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ui.require(["sap/ui/core/mvc/XMLView"], function (XMLView) {
+        XMLView.create({ viewName: "Demo.App" }).then(function (oView) {
+          oView.placeAt("content");
+        });
+      });
+    });
+  </script>
+</head>
+
+<body class="sapUiBody" id="content"></body>
+
+</html>
