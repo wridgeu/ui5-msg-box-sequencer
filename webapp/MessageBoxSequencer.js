@@ -20,7 +20,7 @@ sap.ui.define(
 			 * @public
 			 */
 			constructor: function () {
-				UI5Object.call(this)
+				UI5Object.apply(this, arguments)
 				// Internal Queue, FIFO
 				this._messageQueue = []
 			},
@@ -86,6 +86,15 @@ sap.ui.define(
 					await this.handleMessage(message, messageBoxOptions)
 				}
 			},
+
+			/**
+			 * Destroys the MessageBoxSequencer instance.
+			 * @public
+			 */
+			destroy: function () {
+				this._messageQueue = [];
+				UI5Object.prototype.destroy.apply(this, arguments)
+			}
 		});
 	}
 );
