@@ -22,8 +22,8 @@ sap.ui.define([
 
                 const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === "MessageBoxToBeShownInSequence")
 
-                assert.ok(messageBoxInstance)
-                assert.equal(messageBoxInstance.getId(), "MessageBoxToBeShownInSequence")
+                assert.ok(messageBoxInstance, 'MessageBox Instance found')
+                assert.equal(messageBoxInstance.getId(), "MessageBoxToBeShownInSequence", 'MessageBox Id equals internal constant Id')
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
@@ -42,7 +42,7 @@ sap.ui.define([
                 this._sequencer.handleMessage("Text3")
                 this._sequencer.handleMessage("Text4")
 
-                assert.equal(this._sequencer._messageQueue.length, 3)
+                assert.equal(this._sequencer._messageQueue.length, 3, 'Internal message queue holds 3 texts to be displayed')
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
@@ -58,8 +58,8 @@ sap.ui.define([
                 this._sequencer.handleMessage("Test Case 3")
                 const messageBoxInstance = this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence")
 
-                assert.ok(messageBoxInstance)
-                assert.equal(messageBoxInstance.getId(), "MessageBoxToBeShownInSequence")
+                assert.ok(messageBoxInstance, 'MessageBox Instance found by internal _getDialogInstanceById method')
+                assert.equal(messageBoxInstance.getId(), "MessageBoxToBeShownInSequence", 'MessageBox Id equals internal constant Id')
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
@@ -78,13 +78,15 @@ sap.ui.define([
                 this._sequencer.handleMessage("Text3", { title: "Text3" })
 
                 let index
+                let queueLength = 3
                 for (index = 0; index < 4; index++) {
-                        assert.equal(this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence").getTitle(), `Text${index}`)
+                        assert.equal(this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence").getTitle(), `Text${index}`, `MessageBox has been created in proper sequence: ${index}`)
+                        assert.equal(this._sequencer._messageQueue.length, queueLength--, 'Internal message queue is reduced after opening a MessageBox accordingly')
                         await new Promise((res) => InstanceManager.closeAllDialogs(res))
                 }
 
                 // We should've looped 4 times, closing 4 MessageBoxes in total
-                assert.equal(index, 4)
+                assert.equal(index, 4, 'Looped 4 times, should open 4 MessageBoxes in total')
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
