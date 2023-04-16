@@ -1,6 +1,6 @@
 # ui5-msg-box-sequencer
 
-Minimalistic example of what _could_ be done to put Dialogs/Popups in sequence without any async/await/etc.
+Minimalistic example of what _could_ be done to put Dialogs/Popups in sequence without any async/await/etc. Currently explicitly developed against the [`MessageBox`](https://sapui5.hana.ondemand.com/#/api/sap.m.MessageBox) Control.
 
 ## Use Case
 
