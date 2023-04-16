@@ -2,4 +2,10 @@
 
 Minimalistic example of what _could_ be done to put Dialogs/Popups in sequence without any async/await/etc.
 
-Demo Template to get things super quickly up for testing from: [CodeSandbox](https://codesandbox.io/s/ui5-example-pglil?from-embed=&file=/webapp/App.view.xml)
+## Use Case
+
+You have a central event listener for WebSocket messages in your app. This handler directly takes care of any message (text) from a supervisor coming from the backend. You want to ensure that MessageBoxes (or others) are shown in the sequence they're sent from the backend, because sending messages like this is completely asynchronous and can happen at any time from anyone without any sort of predefined order given.
+
+## Template
+
+Demo Template to get things quickly up for testing taken and adjusted from: [CodeSandbox](https://codesandbox.io/s/ui5-example-pglil?from-embed=&file=/webapp/App.view.xml)
