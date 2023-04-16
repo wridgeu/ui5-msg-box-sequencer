@@ -36,14 +36,15 @@ sap.ui.define(
 			 * @returns 
 			 * @public
 			 */
-			handleMessage: function (message) {
+			handleMessage: function (message, messageBoxOptions) {
 				if (this._getDialogInstanceById(MESSAGE_BOX_ID)) {
-					this._messageQueue.push(message)
+					this._messageQueue.push({ message, messageBoxOptions })
 					return
 				}
 
-				MessageBox.show(message.toString(), {
-					icon: MessageBox.Icon.INFORMATION,
+				MessageBox.show(message, {
+					...messageBoxOptions,
+					// icon: MessageBox.Icon.INFORMATION,
 					id: MESSAGE_BOX_ID, // => ID to be used for the show dialog. Intended for test scenarios, not recommended for productive apps.
 				})
 
@@ -80,11 +81,127 @@ sap.ui.define(
 			 * @private
 			 */
 			_afterCloseHandler: async function () {
-				const nextMessage = this._messageQueue.shift();
-				if (nextMessage) {
-					await this.handleMessage(nextMessage, true)
+				const { message, messageBoxOptions } = this._messageQueue.shift() || {};
+				if (message) {
+					await this.handleMessage(message, messageBoxOptions)
 				}
 			},
 		});
 	}
 );
+
+
+
+// if (!wrkstMessage || typeof wrkstMessage !== "string") {
+// 	return;
+// }
+
+// this._messageBoxSequencer.handleMessage(wrkstMessage, {
+// 	icon: MessageBox.Icon.INFORMATION,
+// 	title: this.geti18nModel().getText("wrkstMessagePopup.title"),
+// 	styleClass: `${this.getContentDensityClass()} messageBoxWrapper`,
+// });
+
+
+// sap.ui.define(
+// 	[
+// 		"sap/ui/base/Object",
+// 		"sap/m/InstanceManager",
+// 		"sap/m/MessageBox",
+// 		"sap/ui/base/EventProvider",
+// 	],
+// 	/**
+// 	 * @param {sap.ui.base.Object} UI5Object
+// 	 * @param {sap/m/InstanceManager} InstanceManger
+// 	 * @param {sap/m/MessageBox} MessageBox
+// 	 * @param {sap/ui/base/EventProvider} EventProvider
+// 	 */
+// 	(UI5Object, InstanceManger, MessageBox, EventProvider) => {
+// 		"use strict";
+
+// 		/**
+// 		 * @constant {string}
+// 		 */
+// 		const MESSAGE_BOX_ID = "MessageBoxToBeShownInSequence";
+
+// 		return UI5Object.extend("com.bmw.kts.d1241.classes.MessageBoxSequencer", {
+// 			/**
+// 			 * @constructor
+// 			 * @public
+// 			 */
+// 			constructor: function () {
+// 				UI5Object.call(this);
+// 				// Internal Queue, FIFO
+// 				this._messageQueue = [];
+// 			},
+
+// 			/**
+// 			 * Handle incoming messages without use of promises/async or await, execution flow does not matter as the
+// 			 * state is handled internally by a queue.
+// 			 * 1. Check if there is already a MessageBox Instance opened
+// 			 * 		1a. If there is, append the message to be shown into the queue, add an `afterClose`-Handler for this instance, and abort further execution
+// 			 * 2. If there is not, create one by using MessageBox.show() which interally openes up a Dialog (creates a DialogInstance)
+// 			 * 3. As MessageBox does not hand us the created DialogInstance, we manually access it right after and attach the `afterClose`-Handler as well.
+// 			 * @param {string} message
+// 			 * @returns
+// 			 * @public
+// 			 */
+// 			handleMessage(message, messageBoxOptions) {
+// 				if (this._getDialogInstanceById(MESSAGE_BOX_ID)) {
+// 					this._messageQueue.push({ message, messageBoxOptions });
+// 					return;
+// 				}
+
+// 				MessageBox.show(message, {
+// 					...messageBoxOptions,
+// 					id: MESSAGE_BOX_ID, // => ID to be used for the show dialog. Intended for test scenarios, not recommended for productive apps.
+// 				});
+
+// 				const dialogInstance = this._getDialogInstanceById(MESSAGE_BOX_ID);
+// 				if (dialogInstance) {
+// 					this._attachAfterCloseHandler(dialogInstance);
+// 				}
+// 			},
+
+// 			/**
+// 			 * Return the found DialogInstance if there is one by the given Id (only the ones created by us).
+// 			 * In case the InstanceManager does not have it, maybe the ElementRegistry does? ;)
+// 			 * @returns {sap.ui.core.Control|undefined}
+// 			 * @private
+// 			 */
+// 			_getDialogInstanceById(Id) {
+// 				return InstanceManger.getOpenDialogs().find((dialog) => dialog.getId() === Id);
+// 			},
+
+// 			/**
+// 			 * Attaches the internal `afterClose`-Handler function, if it is not already attached to ensure proper sequencing.
+// 			 * No need to check if there are messages, the last function call won't receive a message and therefore stop the execution.
+// 			 * Each MessageBox closing should trigger a "roundtrip" to slowly reduce the queued content.
+// 			 * @private
+// 			 */
+// 			_attachAfterCloseHandler(dialogInstance) {
+// 				if (
+// 					!EventProvider.hasListener(
+// 						dialogInstance,
+// 						"afterClose",
+// 						this._afterCloseHandler,
+// 						this
+// 					)
+// 				) {
+// 					dialogInstance.attachAfterClose(this._afterCloseHandler, this);
+// 				}
+// 			},
+
+// 			/**
+// 			 * Internal `afterClose`-Handler. Trigger execution flow again after MessageBox has been closed.
+// 			 * @private
+// 			 */
+// 			async _afterCloseHandler() {
+// 				const { message, messageBoxOptions } = this._messageQueue.shift();
+// 				if (message) {
+// 					this.handleMessage(message, messageBoxOptions);
+// 				}
+// 			},
+// 		});
+// 	}
+// );
