@@ -69,7 +69,7 @@ sap.ui.define([
                 })
         });
 
-        QUnit.test("Should open 4 MessageBoxes after another", async function (assert) {
+        QUnit.test("Should open 4 MessageBoxes in sequence", async function (assert) {
                 const done = assert.async()
 
                 this._sequencer.handleMessage("Text0", { title: "Text0" })
@@ -77,7 +77,6 @@ sap.ui.define([
                 this._sequencer.handleMessage("Text2", { title: "Text2" })
                 this._sequencer.handleMessage("Text3", { title: "Text3" })
 
-                console.log(this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence").getTitle())
                 let index
                 for (index = 0; index < 4; index++) {
                         assert.equal(this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence").getTitle(), `Text${index}`)
