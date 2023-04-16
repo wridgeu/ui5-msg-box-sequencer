@@ -8,7 +8,7 @@ You have a central event listener for WebSocket messages in your app. This handl
 
 ## Usage
 
-As this is a minimalistic example, without any tooling you can simply use the `http-server` or open up the `html` files via [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) directly.
+As this is a minimalistic example without any tooling, you can simply use the `http-server` or open up the `html` files via [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) directly.
 
 ## Template
 
