@@ -6,7 +6,7 @@
 	xmlns:core="sap.ui.core"
 	xmlns="sap.m">
 	<App id="app">
-		<Page title="ShowCase of Putting MessageBoxes in Sequence">
+		<Page title="ShowCase of putting MessageBoxes in sequence">
 			<l:BlockLayout background="Light">
 				<l:BlockLayoutRow>
 					<l:BlockLayoutCell>

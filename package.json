@@ -8,5 +8,7 @@
   "dependencies": {
     "http-server": "14.1.1"
   },
-  "keywords": []
+  "keywords": [
+    "ui5"
+  ]
 }
