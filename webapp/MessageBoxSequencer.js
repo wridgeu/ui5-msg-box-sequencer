@@ -32,7 +32,7 @@ sap.ui.define(
 			 * 		1a. If there is, append the message to be shown into the queue, add an `afterClose`-Handler for this instance, and abort further execution
 			 * 2. If there is not, create one by using MessageBox.show() which interally openes up a Dialog (creates a DialogInstance)
 			 * 3. As MessageBox does not hand us the created DialogInstance, we manually access it right after and attach the `afterClose`-Handler as well.
-			 * @param {string} message 
+			 * @param {string|sap.ui.core.Control} message 
 			 * @returns 
 			 * @public
 			 */

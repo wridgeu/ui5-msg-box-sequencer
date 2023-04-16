@@ -2,11 +2,15 @@
 
 sap.ui.define([
         "Demo/MessageBoxSequencer",
-        "sap/m/InstanceManager"
-], function (MessageBoxSequencer, InstanceManager) {
+        "sap/m/InstanceManager",
+        "sap/m/Button"
+], function (MessageBoxSequencer, InstanceManager, Button) {
         "use strict";
 
         QUnit.module("MessageBoxSequencer", {
+                before: function () {
+                        this._stableMessageBoxId = "MessageBoxToBeShownInSequence"
+                },
                 beforeEach: function () {
                         this._sequencer = new MessageBoxSequencer();
                 },
@@ -20,10 +24,10 @@ sap.ui.define([
 
                 this._sequencer.handleMessage("Test Case 1")
 
-                const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === "MessageBoxToBeShownInSequence")
+                const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId)
 
                 assert.ok(messageBoxInstance, 'MessageBox Instance found')
-                assert.equal(messageBoxInstance.getId(), "MessageBoxToBeShownInSequence", 'MessageBox Id equals internal constant Id')
+                assert.equal(messageBoxInstance.getId(), this._stableMessageBoxId, 'MessageBox Id equals internal constant Id')
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
@@ -56,10 +60,10 @@ sap.ui.define([
                 const done = assert.async()
 
                 this._sequencer.handleMessage("Test Case 3")
-                const messageBoxInstance = this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence")
+                const messageBoxInstance = this._sequencer._getDialogInstanceById(this._stableMessageBoxId)
 
                 assert.ok(messageBoxInstance, 'MessageBox Instance found by internal _getDialogInstanceById method')
-                assert.equal(messageBoxInstance.getId(), "MessageBoxToBeShownInSequence", 'MessageBox Id equals internal constant Id')
+                assert.equal(messageBoxInstance.getId(), this._stableMessageBoxId, 'MessageBox Id equals internal constant Id')
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
@@ -80,7 +84,7 @@ sap.ui.define([
                 let index
                 let queueLength = 3
                 for (index = 0; index < 4; index++) {
-                        assert.equal(this._sequencer._getDialogInstanceById("MessageBoxToBeShownInSequence").getTitle(), `Text${index}`, `MessageBox has been created in proper sequence: ${index}`)
+                        assert.equal(InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId).getTitle(), `Text${index}`, `MessageBox has been created in proper sequence: ${index}`)
                         assert.equal(this._sequencer._messageQueue.length, queueLength--, 'Internal message queue is reduced after opening a MessageBox accordingly')
                         await new Promise((res) => InstanceManager.closeAllDialogs(res))
                 }
@@ -90,6 +94,59 @@ sap.ui.define([
 
                 await new Promise((resolve) => {
                         setTimeout(async () => {
+                                resolve(done())
+                        }, 500)
+                })
+        });
+
+        QUnit.test("Should not display numbers", async function (assert) {
+                const done = assert.async()
+
+                this._sequencer.handleMessage(0)
+
+                const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId)
+                assert.deepEqual(messageBoxInstance.getContent(), [], 'Empty content array returned, nothing displayed in the MessageBox')
+
+                await new Promise((resolve) => {
+                        setTimeout(async () => {
+                                await new Promise((res) => InstanceManager.closeAllDialogs(res))
+                                resolve(done())
+                        }, 500)
+                })
+        });
+
+
+        QUnit.test("Should display string", async function (assert) {
+                const done = assert.async()
+
+                this._sequencer.handleMessage("TextString")
+
+                const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId)
+
+                assert.equal(messageBoxInstance.getContent()[0].isA("sap.m.Text"), true, 'Content array element equals to an sap.m.Text control')
+                assert.equal(messageBoxInstance.getContent()[0].getText(), "TextString", 'Content array with one entry returned, text matches given string')
+
+                await new Promise((resolve) => {
+                        setTimeout(async () => {
+                                await new Promise((res) => InstanceManager.closeAllDialogs(res))
+                                resolve(done())
+                        }, 500)
+                })
+        });
+
+        QUnit.test("Should display ui5 control", async function (assert) {
+                const done = assert.async()
+
+                this._sequencer.handleMessage(new Button({ text: "test" }))
+
+                const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId)
+
+                assert.equal(messageBoxInstance.getContent()[0].isA("sap.m.Button"), true, 'Content array element equals to an sap.m.Button control')
+                assert.equal(messageBoxInstance.getContent()[0].getText(), "test", 'Buttons text property equals the given value')
+
+                await new Promise((resolve) => {
+                        setTimeout(async () => {
+                                await new Promise((res) => InstanceManager.closeAllDialogs(res))
                                 resolve(done())
                         }, 500)
                 })
