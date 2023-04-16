@@ -6,7 +6,7 @@ sap.ui.define([
 ], function (MessageBoxSequencer, InstanceManager) {
         "use strict";
 
-        QUnit.module("Message Box Sequencer", {
+        QUnit.module("MessageBoxSequencer", {
                 beforeEach: function () {
                         this._sequencer = new MessageBoxSequencer();
                 },
@@ -15,7 +15,7 @@ sap.ui.define([
                 }
         });
 
-        QUnit.test("Should create a MessageMox", async function (assert) {
+        QUnit.test("Should create a MessageBox", async function (assert) {
                 const done = assert.async()
 
                 this._sequencer.handleMessage("Test Case 1")
