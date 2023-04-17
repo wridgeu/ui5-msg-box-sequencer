@@ -6,7 +6,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"Demo/test/unit/util/MessageBoxSequencerTest"
+		"Demo/test/unit/MessageBoxSequencerTest"
 	], function () {
 		QUnit.start();
 	});
