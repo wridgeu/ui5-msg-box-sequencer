@@ -3,8 +3,9 @@
 sap.ui.define([
         "Demo/MessageBoxSequencer",
         "sap/m/InstanceManager",
-        "sap/m/Button"
-], function (MessageBoxSequencer, InstanceManager, Button) {
+        "sap/m/Button",
+        "sap/m/MessageBox"
+], function (MessageBoxSequencer, InstanceManager, Button, MessageBox) {
         "use strict";
 
         QUnit.module("MessageBoxSequencer", {
@@ -27,6 +28,28 @@ sap.ui.define([
                 const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId)
 
                 assert.ok(messageBoxInstance, 'MessageBox Instance found')
+                assert.equal(messageBoxInstance.getId(), this._stableMessageBoxId, 'MessageBox Id equals internal constant Id')
+
+                await new Promise((resolve) => {
+                        setTimeout(async () => {
+                                await new Promise((res) => InstanceManager.closeAllDialogs(res))
+                                resolve(done())
+                        }, 500)
+                })
+        });
+
+        QUnit.test("Should create a MessageBox even if there are already others opened", async function (assert) {
+                const done = assert.async()
+
+                MessageBox.show('I am a standalone message box')
+
+                this._sequencer.handleMessage("Test Box")
+
+                assert.equal(InstanceManager.getOpenDialogs().length, 2, 'Two MessageBoxes were created.')
+
+                const messageBoxInstance = InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === this._stableMessageBoxId)
+
+                assert.ok(messageBoxInstance, 'Static Id MessageBox Instance found')
                 assert.equal(messageBoxInstance.getId(), this._stableMessageBoxId, 'MessageBox Id equals internal constant Id')
 
                 await new Promise((resolve) => {
