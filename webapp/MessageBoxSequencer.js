@@ -86,10 +86,10 @@ sap.ui.define(
 			 * Internal `afterClose`-Handler. Trigger execution flow again after MessageBox has been closed.
 			 * @private
 			 */
-			_afterCloseHandler: async function () {
+			_afterCloseHandler: function () {
 				const { message, messageBoxOptions } = this._messageQueue.shift() || {};
 				if (message) {
-					await this.handleMessage(message, messageBoxOptions)
+					this.handleMessage(message, messageBoxOptions)
 				}
 			},
 
