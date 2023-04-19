@@ -29,7 +29,7 @@ sap.ui.define(
 			 * Handle incoming messages without use of promises/async or await, execution flow does not matter as the 
 			 * state is handled internally by a queue.
 			 * 1. Check if there is already a MessageBox Instance opened
-			 * 		1a. If there is, append the message to be shown into the queue, add an `afterClose`-Handler for this instance, and abort further execution
+			 * 		1a. If there is, append the message to be shown into the queue and abort further execution
 			 * 2. If there is not, create one by using MessageBox.show() which interally openes up a Dialog (creates a DialogInstance)
 			 * 3. As MessageBox does not hand us the created DialogInstance, we manually access it right after and attach the `afterClose`-Handler as well.
 			 * @param {string|sap.ui.core.Control} message 
