@@ -5,7 +5,13 @@ sap.ui.define(
 		"sap/m/MessageBox",
 		"sap/ui/base/EventProvider",
 	],
-	function (UI5Object, InstanceManger, MessageBox, EventProvider) {
+	/**
+	 * @param {sap.ui.base.Object} UI5Object
+	 * @param {sap.m.InstanceManager} InstanceManager
+	 * @param {sap.m.MessageBox} MessageBox
+	 * @param {sap.ui.base.EventProvider} EventProvider
+	 */
+	function (UI5Object, InstanceManager, MessageBox, EventProvider) {
 		"use strict";
 
 		/**
@@ -61,7 +67,7 @@ sap.ui.define(
 			 * @private
 			 */
 			_getDialogInstanceById: function (Id) {
-				return InstanceManger.getOpenDialogs().find((dialog) => dialog.getId() === Id)
+				return InstanceManager.getOpenDialogs().find((dialog) => dialog.getId() === Id)
 			},
 
 			/**
