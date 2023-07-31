@@ -4,14 +4,14 @@
 <head>
   <meta charset="utf-8" />
   <title>Demo</title>
-  <script id="sap-ui-bootstrap" src="https://sdk.openui5.org/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize"
+  <script id="sap-ui-bootstrap" src="https://sdk.openui5.org/1.116.0/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize"
     data-sap-ui-libs="sap.m, sap.ui.layout" data-sap-ui-resourceroots='{"Demo": "./"}'
     data-sap-ui-async="true"></script>
   <script>
-    sap.ui.getCore().attachInit(function () {
-      sap.ui.require(["sap/ui/core/mvc/XMLView"], function (XMLView) {
-        XMLView.create({ viewName: "Demo.App" }).then(function (oView) {
-          oView.placeAt("content");
+    sap.ui.getCore().attachInit(() => {
+      sap.ui.require(["sap/ui/core/mvc/XMLView"], (XMLView) => {
+        XMLView.create({ viewName: "Demo.App" }).then((view) => {
+          view.placeAt("content");
         });
       });
     });
