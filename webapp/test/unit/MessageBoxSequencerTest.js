@@ -5,7 +5,7 @@ sap.ui.define([
         "sap/m/InstanceManager",
         "sap/m/Button",
         "sap/m/MessageBox"
-], function (MessageBoxSequencer, InstanceManager, Button, MessageBox) {
+], (MessageBoxSequencer, InstanceManager, Button, MessageBox) => {
         "use strict";
 
         QUnit.module("MessageBoxSequencer", {
