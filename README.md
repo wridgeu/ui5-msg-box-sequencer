@@ -1,6 +1,6 @@
 # ui5-msg-box-sequencer
 
-Minimalistic example of what _could_ be done to put Dialogs/Popups in sequence without any async/await/etc. Currently explicitly developed against the [`MessageBox`](https://sapui5.hana.ondemand.com/#/api/sap.m.MessageBox) Control.
+Minimalistic example of what _could_ be done to put Dialogs/Popups in sequence without any async/await/etc. Currently explicitly developed against the [`MessageBox`](https://ui5.sap.com/#/api/sap.m.MessageBox) Control.
 
 ## Use Case
 
@@ -8,13 +8,27 @@ You have a central event listener (like the app controller where any other view 
 
 Of course this could also be implemented as singleton (with a then shared queue across usages or the queue could be pulled up into the prototype so instances share the same queue no matter what) and used accordingly.
 
+For a full WebSocket integration example with retry logic, eventing facade, and a custom terminal control, see [ui5-websocket-demo](https://github.com/wridgeu/ui5-websocket-demo).
+
 ### Other designs
 
 You could also have queues or save messages in the backend and have various checks if someone is logged/using the application before sending them and so on. The sky is the limit when it comes to architecting this, it usually boils down to the business requirements and time constraint.
 
 ## Usage
 
-As this is a minimalistic example without any tooling, you can simply use the `http-server` or open up the `html` files via [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) directly.
+1. Have NodeJS installed
+2. Install all dependencies
+   ```sh
+   npm i
+   ```
+3. Run the application via
+   ```sh
+   npm start
+   ```
+4. Run the tests via
+   ```sh
+   npm test
+   ```
 
 ## Contribute
 

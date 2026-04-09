@@ -6,27 +6,28 @@
 	xmlns:core="sap.ui.core"
 	xmlns="sap.m">
 	<App id="app">
-		<Page title="ShowCase of putting MessageBoxes in sequence">
+		<Page title="Putting MessageBoxes in Sequence">
 			<l:BlockLayout background="Light">
 				<l:BlockLayoutRow>
 					<l:BlockLayoutCell>
-						<core:Icon color="#1873B4" src="sap-icon://sap-ui5" size="5rem"
-							class="sapUiSmallMarginBottom" width="100%" />
-						<Title level="H1" titleStyle="H1" text="🦅🦅Try it out!🦅🦅" width="100%"
+						<core:Icon src="sap-icon://sap-ui5" size="5rem"
+							class="sapUiSmallMarginBottom sapThemeHighlight-asColor" width="100%" />
+						<Title level="H1" titleStyle="H1" text="Try it out!" width="100%"
 							textAlign="Center" />
+						<Text text="Enter up to five messages below. They will be displayed as sequential MessageBoxes."
+							textAlign="Center" width="100%" class="sapUiSmallMarginBottom" />
 					</l:BlockLayoutCell>
 				</l:BlockLayoutRow>
 				<l:BlockLayoutRow>
 					<l:BlockLayoutCell>
-						<FlexBox direction="Column" alignItems="Stretch" justifyContent="Center"
-							wrap="Wrap" class="sapUiSmallMarginBottom">
-							<Input id="input0" value="This is some test text, number 1"></Input>
-							<Input id="input1" value="This is some test text, number 2"></Input>
-							<Input id="input2" value="This is some test text, number 3"></Input>
-							<Input id="input3" value="This is some test text, number 4"></Input>
-							<Input id="input4" value="This is some test text, number 5"></Input>
-							<Button width="100%" text="Start Demo" press=".onButton"></Button>
-						</FlexBox>
+						<VBox class="sapUiSmallMarginBottom" alignItems="Stretch">
+							<Input id="input0" value="This is some test text, number 1" class="sapUiTinyMarginBottom" />
+							<Input id="input1" value="This is some test text, number 2" class="sapUiTinyMarginBottom" />
+							<Input id="input2" value="This is some test text, number 3" class="sapUiTinyMarginBottom" />
+							<Input id="input3" value="This is some test text, number 4" class="sapUiTinyMarginBottom" />
+							<Input id="input4" value="This is some test text, number 5" class="sapUiTinyMarginBottom" />
+							<Button width="100%" text="Start Demo" type="Emphasized" press=".onButton" />
+						</VBox>
 					</l:BlockLayoutCell>
 				</l:BlockLayoutRow>
 			</l:BlockLayout>

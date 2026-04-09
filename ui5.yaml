@@ -1,0 +1,12 @@
+specVersion: "3.1"
+metadata:
+  name: ui5-msg-box-sequencer
+type: application
+framework:
+  name: OpenUI5
+  version: "1.146.0"
+  libraries:
+    - name: sap.ui.core
+    - name: sap.m
+    - name: sap.ui.layout
+    - name: themelib_sap_horizon

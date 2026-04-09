@@ -63,7 +63,7 @@ sap.ui.define([
         QUnit.test("Should store 3 messages into internal message queue", async function (assert) {
                 const done = assert.async()
 
-                this._sequencer._attachAfterCloseHandler = this.stub().returns(null) // prevent chaining
+                this._sequencer._attachAfterCloseHandler = sinon.stub().returns(null) // prevent chaining
                 this._sequencer.handleMessage("Test Case 2")
                 this._sequencer.handleMessage("Text2")
                 this._sequencer.handleMessage("Text3")

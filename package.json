@@ -4,18 +4,16 @@
   "description": "Minimalistic example for sequencing Popups",
   "license": "SEE LICENSE IN LICENSE.txt",
   "scripts": {
-    "start": "http-server ./webapp -o /index.html",
-    "test": "http-server ./webapp -o /test/unit/unitTests.qunit.html"
-  },
-  "dependencies": {
-    "http-server": "14.1.1"
+    "start": "ui5 serve --open index.html",
+    "test": "ui5 serve --open test/testsuite.qunit.html"
   },
   "keywords": [
     "ui5"
   ],
   "devDependencies": {
-    "@openui5/ts-types": "^1.116.0",
+    "@openui5/ts-types": "^1.146.0",
     "@types/qunit": "^2.19.6",
-    "@types/sinon": "^10.0.15"
+    "@types/sinon": "^10.0.15",
+    "@ui5/cli": "^4.0.0"
   }
 }
