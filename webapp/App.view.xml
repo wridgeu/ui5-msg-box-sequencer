@@ -20,7 +20,7 @@
 				</l:BlockLayoutRow>
 				<l:BlockLayoutRow>
 					<l:BlockLayoutCell>
-						<VBox class="sapUiSmallMarginBottom" alignItems="Stretch">
+						<VBox id="inputBox" class="sapUiSmallMarginBottom" alignItems="Stretch">
 							<Input id="input0" value="This is some test text, number 1" class="sapUiTinyMarginBottom" />
 							<Input id="input1" value="This is some test text, number 2" class="sapUiTinyMarginBottom" />
 							<Input id="input2" value="This is some test text, number 3" class="sapUiTinyMarginBottom" />

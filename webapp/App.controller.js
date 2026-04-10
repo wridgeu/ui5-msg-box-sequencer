@@ -6,23 +6,16 @@ sap.ui.define(
   function (Controller, MessageBoxSequencer) {
     "use strict";
     return Controller.extend("Demo.App", {
-      onInit: function () {
+      onInit() {
         this._messageBoxSequencer = new MessageBoxSequencer()
       },
 
       onButton() {
-        let value;
-        for (let i = 0; i < 5; ++i) {
-          value = this.byId(`input${i}`).getValue()
-          if (!value || typeof value !== 'string') {
-            continue;
-          }
-          this._webSocketHandler(value)
-        }
-      },
-
-      _webSocketHandler(text) {
-        this._messageBoxSequencer.handleMessage(text)
+        this.byId("inputBox").getItems()
+          .filter((item) => item.isA("sap.m.Input"))
+          .map((input) => input.getValue())
+          .filter((value) => value && typeof value === "string")
+          .forEach((value) => this._messageBoxSequencer.handleMessage(value))
       }
     });
   }

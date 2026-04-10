@@ -1,11 +1,19 @@
 {
-	"_version": "2.0.0",
+	"_version": "2.6.0",
 	"sap.app": {
 		"id": "Demo",
 		"type": "application",
 		"title": "MessageBox Sequencer Demo",
 		"applicationVersion": {
 			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
 		}
 	},
 	"sap.ui5": {
@@ -16,6 +24,10 @@
 				"sap.ui.core": {},
 				"sap.ui.layout": {}
 			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
 		}
 	}
 }

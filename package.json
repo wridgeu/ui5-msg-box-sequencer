@@ -2,7 +2,7 @@
   "name": "ui5-messagebox-sequencer-dmo",
   "version": "1.0.0",
   "description": "Minimalistic example for sequencing Popups",
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "Unlicense",
   "scripts": {
     "start": "ui5 serve --open index.html",
     "test": "ui5 serve --open test/testsuite.qunit.html"
